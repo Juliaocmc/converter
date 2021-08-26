@@ -1,5 +1,7 @@
 package com.converter.model;
 
+
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -26,7 +28,7 @@ public class UnitConverter{
     private String symbol;
     private String quantity;
     private String si;
-    private Integer siConversion;
+    private Double siConversion;
 
 
     
