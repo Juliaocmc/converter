@@ -19,7 +19,7 @@ public class UnitConverterService {
     
     public ConversationObject mountEquations(String unitString){
         var co = new ConversationObject();
-        String[] splitted = unitString.split("\\+|\\(|\\*|\\)|\\-|\\/");
+        String[] splitted = unitString.split("\\+|\\-|\\*|\\/|\\(|\\)");
         var unitName = unitString;
         var multiplicationFactor = unitString;
         for (int i=0; i<splitted.length; i++){
@@ -28,7 +28,6 @@ public class UnitConverterService {
                 var siConversion = ucd.getSiConverter(splitted[i]);
                 unitName = unitName.replaceAll(splitted[i], si);
                 multiplicationFactor = multiplicationFactor.replaceAll(splitted[i], String.valueOf(siConversion));
-
             }
         }        
         co.setMultiplication_factor(getMultiplicationFactor(multiplicationFactor));
