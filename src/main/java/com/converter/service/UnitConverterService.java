@@ -17,31 +17,56 @@ public class UnitConverterService {
     @Autowired
     UnitConverterRepository ucd;
     
-    public ConversationObject mountEquations(String unitString){
-        var co = new ConversationObject();
-        String[] splitted = unitString.split("\\+|\\-|\\*|\\/|\\(|\\)");
-        var unitName = unitString;
-        var multiplicationFactor = unitString;
-        for (int i=0; i<splitted.length; i++){
-            if (!splitted[i].isEmpty()){
-                var si = ucd.getSi(splitted[i]);
-                var siConversion = ucd.getSiConverter(splitted[i]);
-                unitName = unitName.replaceAll(splitted[i], si);
-                multiplicationFactor = multiplicationFactor.replaceAll(splitted[i], String.valueOf(siConversion));
-            }
-        }        
-        co.setMultiplication_factor(getMultiplicationFactor(multiplicationFactor));
-        co.setUnit_name(unitName);
-        return co;
+    public ConversationObject mountEquations(String unitString) throws Exception{
+        try {
+            var co = new ConversationObject();
+            String[] splitted = unitString.split("\\+|\\-|\\*|\\/|\\(|\\)");
+            var unitName = unitString;
+            var multiplicationFactor = unitString;
+            for (int i=0; i<splitted.length; i++){
+                if (!splitted[i].isEmpty()){
+                    var si = getSi(splitted[i]);
+                    var siConversion = getSiConverter(splitted[i]);
+                    if (si == null || siConversion == null) throw new Exception("unit not found");
+                    unitName = unitName.replaceAll(splitted[i], si);
+                    multiplicationFactor = multiplicationFactor.replaceAll(splitted[i], String.valueOf(siConversion));
+                    }
+            }        
+            co.setMultiplication_factor(calculateEquation(multiplicationFactor));
+            co.setUnit_name(unitName);
+            return co;
+            
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
 
     }
 
-    public Double getMultiplicationFactor(String multiplicationFactor){
+    public Double calculateEquation(String multiplicationFactor) throws Exception{
+        try {
+            Expression e = new ExpressionBuilder(multiplicationFactor).build();   
+            return e.evaluate();
+            
+        } catch (Exception e) {
+            throw new Exception("It was not possible to perform the equation");
+        }
 
-        Expression e = new ExpressionBuilder(multiplicationFactor).build();   
-        System.out.println(e.evaluate());
-        return e.evaluate();
+    }
 
+    public String getSi(String unit) throws Exception{
+        try {
+            return ucd.getSi(unit);            
+        } catch (Exception e) {
+            throw new Exception("Data not found");
+        }
+    }
+
+    public Double getSiConverter(String unit) throws Exception{
+        try {
+            return ucd.getSiConverter(unit);            
+        } catch (Exception e) {
+            throw new Exception("Data not found");
+        }
     }
 
     
