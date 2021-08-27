@@ -27,13 +27,13 @@ public class UnitConverterService {
                 if (!splitted[i].isEmpty()){
                     var si = getSi(splitted[i]);
                     var siConversion = getSiConverter(splitted[i]);
-                    if (si == null || siConversion == null) throw new Exception("unit not found");
+                    if (si == null || siConversion == null) throw new Exception("Unit not found!");
                     unitName = unitName.replaceAll(splitted[i], si);
                     multiplicationFactor = multiplicationFactor.replaceAll(splitted[i], String.valueOf(siConversion));
                     }
             }        
-            co.setMultiplication_factor(calculateEquation(multiplicationFactor));
-            co.setUnit_name(unitName);
+            co.setMultiplicationFactor(calculateEquation(multiplicationFactor));
+            co.setUnitName(unitName);
             return co;
             
         } catch (Exception e) {
@@ -48,7 +48,7 @@ public class UnitConverterService {
             return e.evaluate();
             
         } catch (Exception e) {
-            throw new Exception("It was not possible to perform the equation");
+            throw new Exception("It was not possible to perform the equation!");
         }
 
     }

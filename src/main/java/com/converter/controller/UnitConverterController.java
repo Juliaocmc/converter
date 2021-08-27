@@ -22,7 +22,7 @@ public class UnitConverterController {
     @ResponseBody
     public ResponseEntity convertUnits(@RequestParam String unitString){
         try {
-            if (unitString != null && !unitString.isEmpty()) throw new Exception("Unit string is empty!");
+            if (unitString != null && unitString.isEmpty()) throw new Exception("Unit string is empty!");
                 return ResponseEntity.ok(ucs.mountEquations(unitString));
             
             

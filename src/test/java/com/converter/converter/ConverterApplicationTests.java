@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ConverterApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
+
 	}
 
 }

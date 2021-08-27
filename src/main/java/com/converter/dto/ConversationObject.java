@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class ConversationObject {
     
-    public String unit_name;
-    public double multiplication_factor;
+    public String unitName;
+    public double multiplicationFactor;
 
 }
