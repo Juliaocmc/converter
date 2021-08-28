@@ -1,0 +1,39 @@
+version: '3'
+services:
+    
+    docker-app:
+        build: .
+        container_name: docker-app
+        image: convert-docker
+        ports:
+        - 8080:8080
+        depends_on:
+        - postgres
+        environment:       
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/convertdb   
+            - POSTGRES_DB=convertdb
+            - POSTGRES_USER=userConvert
+            - POSTGRES_PASSWORD=convert123 
+            - SPRING_JPA_HIBERNATE_DDL_AUTO=update  #create
+        networks:
+            - my_network
+
+    postgres:
+        container_name: postgres
+        image: postgres:10.4
+        environment:  
+            - POSTGRES_DB=convertdb
+            - POSTGRES_USER=userConvert
+            - POSTGRES_PASSWORD=convert123       
+        ports: 
+            - "5432:5432"
+        expose:
+            - 5432
+        networks:
+            - my_network    
+
+volumes:
+    sample_db: {}
+networks:
+    my_network:
+        driver: bridge

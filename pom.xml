@@ -71,6 +71,7 @@
 			<artifactId>junit-vintage-engine</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 	</dependencies>
 
 	<build>
@@ -86,6 +87,11 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+   				<groupId>com.spotify</groupId>
+   			 	<artifactId>dockerfile-maven-plugin</artifactId>
+   			 	<version>1.4.2</version>       			
 			</plugin>
 		</plugins>
 	</build>
