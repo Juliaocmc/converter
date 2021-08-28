@@ -1,0 +1,6 @@
+com/converter/ConverterApplication.class
+com/converter/controller/UnitConverterController.class
+com/converter/service/UnitConverterService.class
+com/converter/repository/UnitConverterRepository.class
+com/converter/model/UnitConverter.class
+com/converter/dto/ConversationObject.class
