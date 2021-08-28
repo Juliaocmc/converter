@@ -1,7 +1,5 @@
 package com.converter.service;
 
-import java.math.BigDecimal;
-
 import com.converter.dto.ConversationObject;
 import com.converter.repository.UnitConverterRepository;
 
@@ -18,18 +16,19 @@ public class UnitConverterService {
     UnitConverterRepository ucd;
     
     public ConversationObject mountEquations(String unitString) throws Exception{
-        try {
+        try {                   
             var co = new ConversationObject();
             String[] splitted = unitString.split("\\+|\\-|\\*|\\/|\\(|\\)");
             var unitName = unitString;
             var multiplicationFactor = unitString;
             for (int i=0; i<splitted.length; i++){
                 if (!splitted[i].isEmpty()){
+                    var unit = splitted[i];         
                     var si = getSi(splitted[i]);
                     var siConversion = getSiConverter(splitted[i]);
                     if (si == null || siConversion == null) throw new Exception("Unit not found!");
-                    unitName = unitName.replaceAll(splitted[i], si);
-                    multiplicationFactor = multiplicationFactor.replaceAll(splitted[i], String.valueOf(siConversion));
+                    unitName = unitName.replaceAll("\\b"+unit+"\\b", si);
+                    multiplicationFactor = multiplicationFactor.replaceAll("\\b"+unit+"\\b", String.valueOf(siConversion));
                     }
             }        
             co.setMultiplicationFactor(calculateEquation(multiplicationFactor));
