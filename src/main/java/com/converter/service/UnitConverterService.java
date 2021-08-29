@@ -25,11 +25,15 @@ public class UnitConverterService {
                 if (!splitted[i].isEmpty()){
                     var unit = splitted[i];         
                     var si = getSi(splitted[i]);
-                    var siConversion = getSiConverter(splitted[i]);
-                    if (si == null || siConversion == null) throw new Exception("Unit not found!");
+                    var siConversion = getSiConverter(splitted[i]);                    
+                    if (unit.contains("°") ||unit.contains("\"") ||unit.contains("'")){
+                    unitName = unitName.replaceAll(unit, si);
+                    multiplicationFactor = multiplicationFactor.replaceAll(unit, String.valueOf(siConversion));
+                    }else{
                     unitName = unitName.replaceAll("\\b"+unit+"\\b", si);
                     multiplicationFactor = multiplicationFactor.replaceAll("\\b"+unit+"\\b", String.valueOf(siConversion));
                     }
+                }
             }        
             co.setMultiplicationFactor(calculateEquation(multiplicationFactor));
             co.setUnitName(unitName);
@@ -54,17 +58,21 @@ public class UnitConverterService {
 
     public String getSi(String unit) throws Exception{
         try {
-            return ucd.getSi(unit);            
+            var si = ucd.getSi(unit);
+            if (si == null) throw new Exception("Unit not found!");
+            return si;            
         } catch (Exception e) {
-            throw new Exception("Data not found");
+            throw new Exception(e.getMessage());
         }
     }
 
     public Double getSiConverter(String unit) throws Exception{
         try {
-            return ucd.getSiConverter(unit);            
+            var siConversion = ucd.getSiConverter(unit);
+            if (siConversion == null) throw new Exception("Unit not found!");
+            return siConversion;         
         } catch (Exception e) {
-            throw new Exception("Data not found");
+            throw new Exception(e.getMessage());
         }
     }
 

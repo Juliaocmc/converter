@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UnitConverterService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">converter</a> &gt; <a href="index.source.html" class="el_package">com.converter.service</a> &gt; <span class="el_source">UnitConverterService.java</span></div><h1>UnitConverterService.java</h1><pre class="source lang-java linenums">package com.converter.service;
+
+import com.converter.dto.ConversationObject;
+import com.converter.repository.UnitConverterRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import net.objecthunter.exp4j.Expression;
+import net.objecthunter.exp4j.ExpressionBuilder;
+
+@Service
+<span class="fc" id="L13">public class UnitConverterService {</span>
+
+    @Autowired
+    UnitConverterRepository ucd;
+    
+    public ConversationObject mountEquations(String unitString) throws Exception{
+        try {                   
+<span class="fc" id="L20">            var co = new ConversationObject();</span>
+<span class="fc" id="L21">            String[] splitted = unitString.split(&quot;\\+|\\-|\\*|\\/|\\(|\\)&quot;);</span>
+<span class="fc" id="L22">            var unitName = unitString;</span>
+<span class="fc" id="L23">            var multiplicationFactor = unitString;</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">            for (int i=0; i&lt;splitted.length; i++){</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">                if (!splitted[i].isEmpty()){</span>
+<span class="fc" id="L26">                    var unit = splitted[i];         </span>
+<span class="fc" id="L27">                    var si = getSi(splitted[i]);</span>
+<span class="fc" id="L28">                    var siConversion = getSiConverter(splitted[i]);                    </span>
+<span class="fc bfc" id="L29" title="All 6 branches covered.">                    if (unit.contains(&quot;°&quot;) ||unit.contains(&quot;\&quot;&quot;) ||unit.contains(&quot;'&quot;)){</span>
+<span class="fc" id="L30">                    unitName = unitName.replaceAll(unit, si);</span>
+<span class="fc" id="L31">                    multiplicationFactor = multiplicationFactor.replaceAll(unit, String.valueOf(siConversion));</span>
+<span class="fc" id="L32">                    }else{</span>
+<span class="fc" id="L33">                    unitName = unitName.replaceAll(&quot;\\b&quot;+unit+&quot;\\b&quot;, si);</span>
+<span class="fc" id="L34">                    multiplicationFactor = multiplicationFactor.replaceAll(&quot;\\b&quot;+unit+&quot;\\b&quot;, String.valueOf(siConversion));</span>
+                    }
+                }
+            }        
+<span class="fc" id="L38">            co.setMultiplicationFactor(calculateEquation(multiplicationFactor));</span>
+<span class="fc" id="L39">            co.setUnitName(unitName);</span>
+<span class="fc" id="L40">            return co;</span>
+            
+<span class="fc" id="L42">        } catch (Exception e) {</span>
+<span class="fc" id="L43">            throw new Exception(e.getMessage());</span>
+        }
+
+    }
+
+    public Double calculateEquation(String multiplicationFactor) throws Exception{
+        try {
+<span class="fc" id="L50">            Expression e = new ExpressionBuilder(multiplicationFactor).build();   </span>
+<span class="fc" id="L51">            return e.evaluate();</span>
+            
+<span class="fc" id="L53">        } catch (Exception e) {</span>
+<span class="fc" id="L54">            throw new Exception(&quot;It was not possible to perform the equation!&quot;);</span>
+        }
+
+    }
+
+    public String getSi(String unit) throws Exception{
+        try {
+<span class="fc" id="L61">            var si = ucd.getSi(unit);</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">            if (si == null) throw new Exception(&quot;Unit not found!&quot;);</span>
+<span class="fc" id="L63">            return si;            </span>
+<span class="fc" id="L64">        } catch (Exception e) {</span>
+<span class="fc" id="L65">            throw new Exception(e.getMessage());</span>
+        }
+    }
+
+    public Double getSiConverter(String unit) throws Exception{
+        try {
+<span class="fc" id="L71">            var siConversion = ucd.getSiConverter(unit);</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">            if (siConversion == null) throw new Exception(&quot;Unit not found!&quot;);</span>
+<span class="fc" id="L73">            return siConversion;         </span>
+<span class="fc" id="L74">        } catch (Exception e) {</span>
+<span class="fc" id="L75">            throw new Exception(e.getMessage());</span>
+        }
+    }
+
+    
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
