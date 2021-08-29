@@ -29,7 +29,7 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 <span class="fc bfc" id="L29" title="All 6 branches covered.">                    if (unit.contains(&quot;°&quot;) ||unit.contains(&quot;\&quot;&quot;) ||unit.contains(&quot;'&quot;)){</span>
 <span class="fc" id="L30">                    unitName = unitName.replaceAll(unit, si);</span>
 <span class="fc" id="L31">                    multiplicationFactor = multiplicationFactor.replaceAll(unit, String.valueOf(siConversion));</span>
-<span class="fc" id="L32">                    }else{</span>
+                    }else{
 <span class="fc" id="L33">                    unitName = unitName.replaceAll(&quot;\\b&quot;+unit+&quot;\\b&quot;, si);</span>
 <span class="fc" id="L34">                    multiplicationFactor = multiplicationFactor.replaceAll(&quot;\\b&quot;+unit+&quot;\\b&quot;, String.valueOf(siConversion));</span>
                     }

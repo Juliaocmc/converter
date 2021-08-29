@@ -1,6 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 converter,com.converter.controller,UnitConverterController,0,28,1,3,0,5,1,3,0,2
-converter,com.converter.model,UnitConverter,42,3,0,0,2,1,12,1,12,1
-converter,com.converter.dto,ConversationObject,0,17,0,0,0,3,0,5,0,5
+converter,com.converter.model,UnitConverter,42,3,0,0,7,1,12,1,12,1
+converter,com.converter.dto,ConversationObject,0,17,0,0,0,4,0,5,0,5
 converter,com.converter,ConverterApplication,5,3,0,0,2,1,1,1,1,1
-converter,com.converter.service,UnitConverterService,0,171,0,14,0,35,0,12,0,5
+converter,com.converter.service,UnitConverterService,0,157,0,14,0,34,0,12,0,5

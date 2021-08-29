@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-<span class="nc" id="L16">@Getter</span>
+@Getter
 <span class="nc" id="L17">@Setter</span>
 @Entity
 @Table(name=&quot;Unit_Conversion_Factors&quot;)
@@ -23,12 +23,12 @@ import lombok.Setter;
     @Id
     @GeneratedValue(generator = &quot;uuid&quot;)
 	@GenericGenerator(name = &quot;uuid&quot;, strategy = &quot;uuid2&quot;)
-    private String id;
-    private String name;
-    private String symbol;
-    private String quantity;
-    private String si;
-    private Double siConversion;
+<span class="nc" id="L26">    private String id;</span>
+<span class="nc" id="L27">    private String name;</span>
+<span class="nc" id="L28">    private String symbol;</span>
+<span class="nc" id="L29">    private String quantity;</span>
+<span class="nc" id="L30">    private String si;</span>
+<span class="nc" id="L31">    private Double siConversion;</span>
 
 
     
