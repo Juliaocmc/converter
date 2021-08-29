@@ -5,10 +5,10 @@ Ex: Horas (h) para segundos (s)
 O projeto é escrito com a tecnologia Spring Boot (Java), é utilizado um banco relacional (Postgres) e a tecnologia de container Docker. 
 Para sua utilização, é necessário primeiramente clonar este repositório e acessar sua pasta raiz  <code>../converter</code>.
 
-O projeto já possui uma imagem Docker. Cao deseje recria-la, utilize o comando <code>docker build -t convert-docker .</code>.<br/>
-Utilizaremos docker-compose para gerar uma relação desta imagem com o banco de dados. Utilize o comando <code> docker-compose up</code>. O código será copilado, expoem a porta 8080 da API e a 5432 do banco de dados. É esperado que a API também criado a tabela ***unit_conversion_factors*** no banco. Caso não deseje observar os logs e utilizar o mesmo terminal, utilize o comando <code> docker-compose up -d</code>. 
+O projeto já possui uma imagem Docker. Caso deseje recria-la, utilize o comando <code>docker build -t convert-docker .</code>.<br/>
+Utilizaremos docker-compose para gerar uma relação desta imagem com o banco de dados. Utilize o comando <code> docker-compose up</code>. O código será copilado, expõem a porta 8080 da API e a 5432 do banco de dados. É esperado que a API também crie a tabela ***unit_conversion_factors*** no banco. Caso não deseje observar os logs e utilizar o mesmo terminal, utilize o comando <code> docker-compose up -d</code>. 
 
-Agora é necessário inserir os dados no banco de dados. Você pode fazer isto pelo seu administrador de banco favorito, ou se não houver um interface gráfica, basta utilizar o comando <code>docker exec -it postgres psql -U userConvert  convertdb</code> para inserir os dados na tabela criada. Caso solicite, a senha é (convert123).
+Agora é necessário inserir os dados no banco de dados. Você pode fazer isto pelo seu administrador de banco favorito, ou se não houver uma interface gráfica, basta utilizar o comando <code>docker exec -it postgres psql -U userConvert  convertdb</code> para inserir os dados na tabela criada. Caso solicite, a senha é (convert123).
 
 Os dados a serem inseridos estão presente no seguinte comando SQL:<br />
 ```
@@ -42,7 +42,7 @@ Os parâmetros (que vamos chamar de unidades) a serem passados, estão presentes
 | tonne     	| t      	|
 
 As unidades pode ser somadas <code>+</code>, subtraídas <code>-</code>, multiplicadas <code>*</code> ou divididas <code>/</code>.<br/>
-Podem também estarem envolvidas por parênteses <code>()</code>.
+Podem também estar envolvidas por parênteses <code>()</code>.
 
 Exemplo 1 : <code>localhost:8080/units?unitString=***day/minute***</code><br/>
 Exemplo 2 : <code>localhost:8080/units?unitString=***hectare*(litre/minute)***</code>
